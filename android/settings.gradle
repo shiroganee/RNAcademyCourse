@@ -1,0 +1,3 @@
+rootProject.name = 'RNAcademyCourse'
+
+include ':app'
