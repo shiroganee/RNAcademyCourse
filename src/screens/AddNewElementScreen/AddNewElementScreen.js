@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Button, TextInput, View } from 'react-native';
+import { AsyncStorage, Button, TextInput, SafeAreaView } from 'react-native';
 
 const ELEMENTS_VALUE_KEY = 'ELEMENTS_VALUE_KEY';
 
@@ -23,7 +23,7 @@ export default class AddNewElementScreen extends Component {
 
 	render() {
 		return (
-			<View style={{ flex: 1, width: '100%' }}>
+			<SafeAreaView style={{ flex: 1, width: '100%' }}>
 				<TextInput
 					placeholder="Write your text"
 					onChangeText={this.setText}
@@ -38,7 +38,7 @@ export default class AddNewElementScreen extends Component {
 					}}
 				/>
 				<Button onPress={this.addElement} title="Add" />
-			</View>
+			</SafeAreaView>
 		);
 	}
 }

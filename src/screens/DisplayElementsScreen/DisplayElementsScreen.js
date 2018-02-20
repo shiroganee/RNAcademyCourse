@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AsyncStorage, Text, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from '../../components/Icon';
 
 const ELEMENTS_VALUE_KEY = 'ELEMENTS_VALUE_KEY';
 
@@ -33,7 +33,7 @@ export default class DisplayElementsScreen extends Component {
 							<Text style={{ fontSize: 20, color: '#1679bf' }}>{element}</Text>
 						</TouchableOpacity>
 						<TouchableOpacity onPress={this.removeElement(element)}>
-							<Icon name='ios-remove-circle-outline' size={20} />
+							<Icon nameIos='ios-remove-circle-outline' nameAndroid='remove' size={20} />
 						</TouchableOpacity>
 					</View>
 				))}

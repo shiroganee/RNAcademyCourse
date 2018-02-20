@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, SafeAreaView } from 'react-native';
+import { Animated } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 
 import AddNewElementScreen from './screens/AddNewElementScreen/AddNewElementScreen';
@@ -35,7 +35,7 @@ const MainNavigator = TabNavigator({
 			tabBarLabel: 'New',
 			tabBarIcon: ({ tintColor, focused }) => (
 				<Icon
-					nameAndroid={focused ? 'ios-list' : 'ios-list-box-outline'}
+					nameAndroid={focused ? 'add' : 'add-circle-outline'}
 					nameIos={focused ? 'ios-add' : 'ios-add-circle-outline'}
 					size={26}
 					style={{ color: tintColor }}
@@ -49,7 +49,7 @@ const MainNavigator = TabNavigator({
 			tabBarLabel: 'List',
 			tabBarIcon: ({ tintColor, focused }) => (
 				<Icon
-					nameAndroid={focused ? 'ios-list' : 'ios-list-box-outline'}
+					nameAndroid={focused ? 'format-list-bulleted' : 'list'}
 					nameIos={focused ? 'ios-list' : 'ios-list-box-outline'}
 					size={26}
 					style={{ color: tintColor }}
@@ -60,6 +60,7 @@ const MainNavigator = TabNavigator({
 }, {
 	initialRouteName: 'AddNewElement',
 	animationEnabled: true,
+	tabBarPosition: 'bottom',
 	configureTransition: () => ({
 		timing: Animated.spring,
 		tension: 1,
@@ -70,8 +71,6 @@ const MainNavigator = TabNavigator({
 });
 
 export const App = () => (
-	<SafeAreaView style={{ flex: 1 }}>
-		<MainNavigator />
-	</SafeAreaView>
+	<MainNavigator />
 );
 
