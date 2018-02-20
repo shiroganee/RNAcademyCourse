@@ -1,10 +1,10 @@
 import React from 'react';
 import { Animated, SafeAreaView } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import Ionicon from 'react-native-vector-icons/Ionicons';
 
 import AddNewElementScreen from './screens/AddNewElementScreen/AddNewElementScreen';
 import DisplayElementsScreen from './screens/DisplayElementsScreen/DisplayElementsScreen';
+import Icon from './components/Icon';
 
 const ElementInformatioNavigator = StackNavigator({
 	MainList: {
@@ -34,8 +34,9 @@ const MainNavigator = TabNavigator({
 		navigationOptions: {
 			tabBarLabel: 'New',
 			tabBarIcon: ({ tintColor, focused }) => (
-				<Ionicon
-					name={focused ? 'ios-add' : 'ios-add-circle-outline'}
+				<Icon
+					nameAndroid={focused ? 'ios-list' : 'ios-list-box-outline'}
+					nameIos={focused ? 'ios-add' : 'ios-add-circle-outline'}
 					size={26}
 					style={{ color: tintColor }}
 				/>
@@ -47,8 +48,9 @@ const MainNavigator = TabNavigator({
 		navigationOptions: {
 			tabBarLabel: 'List',
 			tabBarIcon: ({ tintColor, focused }) => (
-				<Ionicon
-					name={focused ? 'ios-list' : 'ios-list-box-outline'}
+				<Icon
+					nameAndroid={focused ? 'ios-list' : 'ios-list-box-outline'}
+					nameIos={focused ? 'ios-list' : 'ios-list-box-outline'}
 					size={26}
 					style={{ color: tintColor }}
 				/>
@@ -72,3 +74,4 @@ export const App = () => (
 		<MainNavigator />
 	</SafeAreaView>
 );
+
