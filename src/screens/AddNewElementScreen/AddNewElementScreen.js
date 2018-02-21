@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Button, TextInput, SafeAreaView } from 'react-native';
+import { Button, SafeAreaView, TextInput } from 'react-native';
+import { connect } from 'react-redux';
+import { addElement, getApiCall } from '../../redux';
 
-const ELEMENTS_VALUE_KEY = 'ELEMENTS_VALUE_KEY';
-
-export default class AddNewElementScreen extends Component {
-	state = {
-		text: '',
-		elements: []
-	};
+class AddNewElementScreen extends Component {
+	state = { text: '' };
 
 	async componentDidMount() {
-		const elements = await AsyncStorage.getItem(ELEMENTS_VALUE_KEY);
-		this.setState({ elements: JSON.parse(elements) || [] });
+		this.props.getApiCall();
 	}
 
 	setText = (text) => this.setState({ text });
 
-	addElement = () => this.setState({ elements: [...this.state.elements, this.state.text] }, async () => {
+	addElement = () => {
+		this.props.addElement(this.state.text);
 		this.setState({ text: '' });
-		await AsyncStorage.setItem(ELEMENTS_VALUE_KEY, JSON.stringify(this.state.elements));
-	});
+	};
 
 	render() {
 		return (
@@ -42,3 +38,5 @@ export default class AddNewElementScreen extends Component {
 		);
 	}
 }
+
+export default connect(state => state.example, { getApiCall, addElement })(AddNewElementScreen);

@@ -1,27 +1,24 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { connect } from 'react-redux';
+
 import Icon from '../../components/Icon';
+import { removeElement } from '../../redux';
+
 
 const ELEMENTS_VALUE_KEY = 'ELEMENTS_VALUE_KEY';
 
-export default class DisplayElementsScreen extends Component {
-	state = {
-		elements: []
-	};
-
-	async componentDidMount() {
-		const elements = await AsyncStorage.getItem(ELEMENTS_VALUE_KEY);
-		this.setState({ elements: JSON.parse(elements) || [] });
-	}
-
+class DisplayElementsScreen extends Component {
 	navigateTo = (name) => () => this.props.navigation.navigate('ElementInfo', { name });
 
-	removeElement = (element) => () => this.setState({ elements: this.state.elements.filter(elem => elem !== element) })
+	removeElement = (element) => () => {
+		this.props.removeElement(element);
+	};
 
 	render() {
 		return (
 			<View style={{ flex: 1, width: '100%', backgroundColor: 'white' }}>
-				{this.state.elements.map((element, index) => (
+				{this.props.elements.map((element, index) => (
 					<View style={{
 						padding: 10,
 						paddingHorizontal: 40,
@@ -41,3 +38,5 @@ export default class DisplayElementsScreen extends Component {
 		);
 	}
 }
+
+export default connect(state => state.example, { removeElement })(DisplayElementsScreen);

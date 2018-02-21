@@ -1,76 +1,18 @@
-import React from 'react';
-import { Animated } from 'react-native';
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
-import AddNewElementScreen from './screens/AddNewElementScreen/AddNewElementScreen';
-import DisplayElementsScreen from './screens/DisplayElementsScreen/DisplayElementsScreen';
-import Icon from './components/Icon';
+import configureStore from './redux';
+import { MainNavigator } from './navigators';
 
-const ElementInformatioNavigator = StackNavigator({
-	MainList: {
-		screen: DisplayElementsScreen,
-		navigationOptions: () => ({
-			title: 'Main List'
-		})
-	},
-	ElementInfo: {
-		screen: DisplayElementsScreen,
-		navigationOptions: ({ navigation }) => ({
-			title: `${navigation.state.params.name}'s Info`
-		})
+export default class App extends Component {
+	render() {
+		return (
+			<Provider store={configureStore.store}>
+				<PersistGate loading={null} persistor={configureStore.persistor}>
+					<MainNavigator />
+				</PersistGate>
+			</Provider>
+		);
 	}
-}, {
-	initialRouteName: 'MainList',
-	navigationOptions: {
-		headerStyle: {
-			backgroundColor: 'white'
-		}
-	}
-});
-
-const MainNavigator = TabNavigator({
-	AddNewElement: {
-		screen: AddNewElementScreen,
-		navigationOptions: {
-			tabBarLabel: 'New',
-			tabBarIcon: ({ tintColor, focused }) => (
-				<Icon
-					nameAndroid={focused ? 'add' : 'add-circle-outline'}
-					nameIos={focused ? 'ios-add' : 'ios-add-circle-outline'}
-					size={26}
-					style={{ color: tintColor }}
-				/>
-			)
-		}
-	},
-	ListScreen: {
-		screen: ElementInformatioNavigator,
-		navigationOptions: {
-			tabBarLabel: 'List',
-			tabBarIcon: ({ tintColor, focused }) => (
-				<Icon
-					nameAndroid={focused ? 'format-list-bulleted' : 'list'}
-					nameIos={focused ? 'ios-list' : 'ios-list-box-outline'}
-					size={26}
-					style={{ color: tintColor }}
-				/>
-			)
-		}
-	}
-}, {
-	initialRouteName: 'AddNewElement',
-	animationEnabled: true,
-	tabBarPosition: 'bottom',
-	configureTransition: () => ({
-		timing: Animated.spring,
-		tension: 1,
-		friction: 25
-	}),
-	swipeEnabled: true,
-	activeTintColor: 'red'
-});
-
-export const App = () => (
-	<MainNavigator />
-);
-
+}
