@@ -2,6 +2,7 @@ import React from 'react';
 import { Animated } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 
+import AnimationsScreen from '../screens/AnimationsScreen/AnimationsScreen';
 import AddNewElementScreen from '../screens/AddNewElementScreen/AddNewElementScreen';
 import DisplayElementsScreen from '../screens/DisplayElementsScreen/DisplayElementsScreen';
 import Icon from '../components/Icon';
@@ -29,6 +30,12 @@ const ElementInformatioNavigator = StackNavigator({
 });
 
 export const MainNavigator = TabNavigator({
+	Animations: {
+		screen: AnimationsScreen,
+		navigationOptions: {
+			tabBarLabel: 'Animations'
+		}
+	},
 	AddNewElement: {
 		screen: AddNewElementScreen,
 		navigationOptions: {
@@ -58,7 +65,7 @@ export const MainNavigator = TabNavigator({
 		}
 	}
 }, {
-	initialRouteName: 'AddNewElement',
+	initialRouteName: 'Animations',
 	animationEnabled: true,
 	tabBarPosition: 'bottom',
 	configureTransition: () => ({

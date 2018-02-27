@@ -3,6 +3,8 @@ import { Button, SafeAreaView, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { addElement, getApiCall } from '../../redux';
 
+import styles from './AddNewElementScreenStyle';
+
 class AddNewElementScreen extends Component {
 	state = { text: '' };
 
@@ -19,7 +21,7 @@ class AddNewElementScreen extends Component {
 
 	render() {
 		return (
-			<SafeAreaView style={{ flex: 1, width: '100%' }}>
+			<SafeAreaView style={styles.container}>
 				<TextInput
 					placeholder="Write your text"
 					onChangeText={this.setText}
