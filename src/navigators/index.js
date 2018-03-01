@@ -65,7 +65,7 @@ export const MainNavigator = TabNavigator({
 		}
 	}
 }, {
-	initialRouteName: 'Animations',
+	initialRouteName: 'AddNewElement',
 	animationEnabled: true,
 	tabBarPosition: 'bottom',
 	configureTransition: () => ({

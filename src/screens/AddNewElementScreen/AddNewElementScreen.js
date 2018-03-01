@@ -1,15 +1,27 @@
 import React, { Component } from 'react';
-import { Button, SafeAreaView, TextInput } from 'react-native';
 import { connect } from 'react-redux';
+import { Button, SafeAreaView, Text, TextInput, View } from 'react-native';
+
 import { addElement, getApiCall } from '../../redux';
+import * as CustomModule from '../../../CustomModule';
 
 import styles from './AddNewElementScreenStyle';
 
 class AddNewElementScreen extends Component {
-	state = { text: '' };
+	state = {
+		text: '',
+		listCallback: [],
+		listAsync: [],
+		currentDate: ''
+	};
 
 	async componentDidMount() {
 		this.props.getApiCall();
+
+		this.moduleListener();
+		CustomModule.startListening();
+		this.getModuleList();
+		this.getModuleListAsync();
 	}
 
 	setText = (text) => this.setState({ text });
@@ -17,6 +29,23 @@ class AddNewElementScreen extends Component {
 	addElement = () => {
 		this.props.addElement(this.state.text);
 		this.setState({ text: '' });
+	};
+
+	getModuleList = () => {
+		CustomModule.getModuleList((error, listCallback) => this.setState({ listCallback }))
+	};
+
+	getModuleListAsync = async () => {
+		try {
+			const listAsync = await CustomModule.getModuleListAsync();
+			this.setState({ listAsync });
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	moduleListener = () => {
+		CustomModule.addBasicListener(({ date }) => this.setState({ currentDate: date }))
 	};
 
 	render() {
@@ -36,6 +65,13 @@ class AddNewElementScreen extends Component {
 					}}
 				/>
 				<Button onPress={this.addElement} title="Add" />
+				<View style={{ flexDirection: 'row' }}>
+					{this.state.listCallback.map((elem, index) => <Text key={index}>{elem}</Text>)}
+				</View>
+				<View style={{ flexDirection: 'row' }}>
+					{this.state.listAsync.map((elem, index) => <Text key={index}>{elem}</Text>)}
+				</View>
+				<Text>{this.state.currentDate}</Text>
 			</SafeAreaView>
 		);
 	}
